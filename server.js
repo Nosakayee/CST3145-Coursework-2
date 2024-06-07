@@ -10,10 +10,10 @@ app.use(cors());
 
 // Connecting to the database
 var db;
-const uri = "mongodb+srv://Deji:Ayodeji005@cluster0.lnn7tna.mongodb.net/";
+const uri = "mongodb+srv://NosNos:Asabe24.@cluster0.ltty2nq.mongodb.net/";
 try {
   const client = new MongoClient(uri);
-  db = client.db("webstore");
+  db = client.db("Webstore");
   console.log("Successfully connected to MongoDB!");
 } catch (e) {
   console.error("Database connection failed. - Error:" + e);
