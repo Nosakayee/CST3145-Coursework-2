@@ -129,6 +129,39 @@ app.delete("/collection/:collectionName/:id", (req, res) => {
     console.log(error);
   }
 });
+// images middleware
+// server.js
+const axios = require('axios');
+
+
+// GitHub repository details
+const githubUsername = 'your-github-username';
+const repositoryName = 'your-repository-name';
+const branchName = 'main'; // or whichever branch your images are stored in
+
+// Route to get images
+app.get('/app/images/:id', async (req, res) => {
+    const imageId = req.params.id;
+    const imageUrl = `https://raw.githubusercontent.com/${githubUsername}/${repositoryName}/${branchName}/images/${imageId}`;
+
+    try {
+        const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+        const imageBuffer = Buffer.from(response.data, 'binary');
+        res.writeHead(200, {
+            'Content-Type': response.headers['content-type'],
+            'Content-Length': response.headers['content-length']
+        });
+        res.end(imageBuffer);
+    } catch (error) {
+        if (error.response && error.response.status === 404) {
+            res.status(404).send('Image not found');
+        } else {
+            res.status(500).send('An error occurred while fetching the image');
+        }
+    }
+});
+
+
 
 app.listen(3000, () => {
   console.log("Express.js server running at PORT 3000");
