@@ -134,7 +134,7 @@ app.listen(3000, () => {
   console.log("Express.js server running at PORT 3000");
 });
 
-
+console.log("testing");
 // images middleware
 // server.js
 const axios = require('axios');
